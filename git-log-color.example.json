@@ -1,0 +1,25 @@
+{
+  "ui": {
+    "color_enabled": true,
+    "icons_enabled": true
+  },
+  "styles": {
+    "commit": "bold #FFD700",
+    "branch": "bold cyan",
+    "tag": "bold #FF88FF",
+    "message": "white",
+    "graph_main": "bold cyan",
+    "graph_merge": "bold green",
+    "graph_branch": "bold yellow",
+    "author": "white bg:#550000 italic",
+    "date": "bold #AA55FF"
+  },
+  "icons": {
+    "commit": "💾 ",
+    "tag": "🏷️ ",
+    "username": "🙎 ",
+    "email": "📧 ",
+    "date": "📅 ",
+    "version": "📦 "
+  }
+}
