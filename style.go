@@ -13,6 +13,7 @@ func defaultStyles() map[string]string {
 		"commit":         "bold yellow",
 		"branch":         "bold cyan",
 		"tag":            "bold #FFAAFF",
+		"tag_version":    "white bg:#0000FF italic",
 		"remote":         "green",
 		"author":         "white bg:#AA0000 italic",
 		"date":           "bold #AA55FF",
