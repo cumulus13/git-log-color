@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "A wrapper around `git log`",
   "homepage": "https://github.com/cumulus13/git-log-color",
   "license": "MIT",
