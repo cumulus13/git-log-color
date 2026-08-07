@@ -7,15 +7,20 @@ import (
 )
 
 type TextRenderer struct {
-	styler Styler
-	icons  IconSet
+	styler       Styler
+	icons        IconSet
+	authorColors *AuthorColorAssigner
 }
 
 func NewTextRenderer(cfg Config) TextRenderer {
-	return TextRenderer{
+	renderer := TextRenderer{
 		styler: NewStyler(cfg),
 		icons:  NewIconSet(cfg),
 	}
+	if cfg.UI.AuthorColorsEnabled {
+		renderer.authorColors = NewAuthorColorAssigner(cfg.AuthorPalette)
+	}
+	return renderer
 }
 
 var graphLinePattern = regexp.MustCompile(`^([*|/\\\s\-_+]+)(.*)$`)
@@ -64,9 +69,17 @@ func (r TextRenderer) renderFullLine(line string) string {
 	}
 
 	if authorMatch := authorLinePattern.FindStringSubmatch(content); authorMatch != nil {
+		authorName := strings.TrimSpace(authorMatch[1])
+		var styledAuthor string
+		if r.authorColors != nil {
+			styledAuthor = r.authorColors.Apply(r.styler, authorName, authorName)
+		} else {
+			styledAuthor = r.styler.Apply("author", authorName)
+		}
+
 		return graph +
 			r.styler.Apply("username", r.icons.Get("username")+" Author: ") +
-			r.styler.Apply("author", strings.TrimSpace(authorMatch[1])) +
+			styledAuthor +
 			" " +
 			r.styler.Apply("remote", r.icons.Get("email")+"<"+authorMatch[2]+">")
 	}

@@ -65,6 +65,26 @@ func (s Styler) Apply(name string, text string) string {
 	return ansi + text + ansiReset
 }
 
+// ApplySpec renders text using a raw style spec string (e.g. "bold #FF5555")
+// instead of looking one up by name in the configured styles map. Used for
+// dynamically-assigned styles such as per-author colors.
+func (s Styler) ApplySpec(spec string, text string) string {
+	if !s.enabled {
+		return text
+	}
+
+	if strings.TrimSpace(spec) == "" {
+		return text
+	}
+
+	ansi, err := parseStyleSpec(spec)
+	if err != nil {
+		return text
+	}
+
+	return ansi + text + ansiReset
+}
+
 func parseStyleSpec(spec string) (string, error) {
 	tokens := strings.Fields(strings.TrimSpace(spec))
 	if len(tokens) == 0 {

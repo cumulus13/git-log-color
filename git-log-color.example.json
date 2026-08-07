@@ -1,7 +1,8 @@
 {
   "ui": {
     "color_enabled": true,
-    "icons_enabled": true
+    "icons_enabled": true,
+    "author_colors_enabled": true
   },
   "styles": {
     "commit": "bold #FFD700",
@@ -21,5 +22,19 @@
     "email": "📧 ",
     "date": "📅 ",
     "version": "📦 "
-  }
+  },
+  "author_palette": [
+    "bold #FF5555",
+    "bold #55FF55",
+    "bold #5599FF",
+    "bold #FFD700",
+    "bold #FF55FF",
+    "bold #55FFFF",
+    "bold #FFA500",
+    "bold #AA55FF",
+    "bold #00CED1",
+    "bold #FF69B4",
+    "bold #9ACD32",
+    "bold #40E0D0"
+  ]
 }

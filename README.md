@@ -3,6 +3,7 @@
 `git-log-color` is a wrapper around `git log` with:
 
 - colorful graph output
+- per-author sequential coloring, so each commit owner gets their own consistent color
 - default emoji/icon rendering
 - configurable styles and icons from a JSON config file
 - structured output modes: `json`, `table`, `xml`, `yaml`, `toml`
@@ -48,6 +49,30 @@ Example:
   }
 }
 ```
+
+## Author Colors
+
+[#author-colors](#author-colors)
+
+In `text` format, each distinct commit author is colored using a fixed, sequential palette instead of a single flat `author` style: the first author seen gets the first color in the palette, the second author gets the second color, and so on. The same author always keeps the same color for the whole run, and the palette wraps around if there are more authors than colors.
+
+This is on by default. To disable it (falling back to the single `author` style) or to customize the palette:
+
+```json
+{
+  "ui": {
+    "author_colors_enabled": true
+  },
+  "author_palette": [
+    "bold #FF5555",
+    "bold #55FF55",
+    "bold #5599FF",
+    "bold #FFD700"
+  ]
+}
+```
+
+Set `"author_colors_enabled": false` to disable per-author colors and use the static `author` style for everyone.
 
 ## Supported Style Keys
 
