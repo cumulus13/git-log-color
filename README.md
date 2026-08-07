@@ -4,6 +4,7 @@
 
 - colorful graph output
 - per-author sequential coloring, so each commit owner gets their own consistent color
+- output paged through `$GIT_PAGER`/`$PAGER` (or `less`) by default
 - default emoji/icon rendering
 - configurable styles and icons from a JSON config file
 - structured output modes: `json`, `table`, `xml`, `yaml`, `toml`
@@ -16,6 +17,16 @@
 git-log-color --path . --format text
 git-log-color -C ../repo --all --oneline
 git-log-color --format json -- --author=Hadi -- README.md
+```
+
+By default, when attached to a terminal, output is piped through a pager
+(`$GIT_PAGER`, then `$PAGER`, then `less -R -F -X`, same precedence git
+itself uses). Pass `-f`/`--full` to skip the pager and print everything
+directly:
+
+```bash
+git-log-color --path . -f
+git-log-color --path . --full --format json
 ```
 
 ## Config
@@ -54,7 +65,7 @@ Example:
 
 [#author-colors](#author-colors)
 
-In `text` format, each distinct commit author is colored using a fixed, sequential palette instead of a single flat `author` style: the first author seen gets the first color in the palette, the second author gets the second color, and so on. The same author always keeps the same color for the whole run, and the palette wraps around if there are more authors than colors.
+In `text` format, each distinct commit author is colored using a fixed, sequential palette instead of a single flat `author` style: the first author seen gets the first background color in the palette, the second author gets the second, and so on - keeping the same "white-on-color" block look as the original `author` style, just with a different background per owner. The same author always keeps the same color for the whole run, and the palette wraps around if there are more authors than colors.
 
 This is on by default. To disable it (falling back to the single `author` style) or to customize the palette:
 
@@ -64,10 +75,10 @@ This is on by default. To disable it (falling back to the single `author` style)
     "author_colors_enabled": true
   },
   "author_palette": [
-    "bold #FF5555",
-    "bold #55FF55",
-    "bold #5599FF",
-    "bold #FFD700"
+    "white bg:#AA0000 italic",
+    "white bg:#006400 italic",
+    "white bg:#00008B italic",
+    "white bg:#8B5A00 italic"
   ]
 }
 ```

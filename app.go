@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"io"
 )
 
 type Application struct {
@@ -17,7 +17,7 @@ func NewApplication(config Config, options CLIOptions) *Application {
 	}
 }
 
-func (a *Application) Run(repoPath string) error {
+func (a *Application) Run(repoPath string, out io.Writer) error {
 	client := GitClient{
 		Bin:      a.options.GitBin,
 		RepoPath: repoPath,
@@ -35,7 +35,7 @@ func (a *Application) Run(repoPath string) error {
 
 		renderer := NewTextRenderer(a.config)
 		for _, line := range lines {
-			fmt.Fprintln(os.Stdout, renderer.RenderLine(line, a.options.OneLine))
+			fmt.Fprintln(out, renderer.RenderLine(line, a.options.OneLine))
 		}
 		return nil
 	}
@@ -45,11 +45,11 @@ func (a *Application) Run(repoPath string) error {
 		return err
 	}
 
-	out, err := FormatCommits(a.options.Format, commits, a.config)
+	formatted, err := FormatCommits(a.options.Format, commits, a.config)
 	if err != nil {
 		return err
 	}
 
-	fmt.Fprintln(os.Stdout, out)
+	fmt.Fprintln(out, formatted)
 	return nil
 }

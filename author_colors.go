@@ -9,20 +9,25 @@ import "strings"
 // giving each unique author a consistently distinct color across a run.
 // If there are more authors than palette entries, the palette wraps
 // around and repeats from the start.
+//
+// Each entry follows the same shape as the original default "author"
+// style (white italic text on a colored background) - only the
+// background color changes between owners, so the "author block" look
+// is preserved.
 func defaultAuthorPalette() []string {
 	return []string{
-		"bold #FF5555", // red
-		"bold #55FF55", // green
-		"bold #5599FF", // blue
-		"bold #FFD700", // gold
-		"bold #FF55FF", // magenta
-		"bold #55FFFF", // cyan
-		"bold #FFA500", // orange
-		"bold #AA55FF", // purple
-		"bold #00CED1", // dark turquoise
-		"bold #FF69B4", // hot pink
-		"bold #9ACD32", // yellow-green
-		"bold #40E0D0", // turquoise
+		"white bg:#AA0000 italic", // red
+		"white bg:#006400 italic", // green
+		"white bg:#00008B italic", // blue
+		"white bg:#8B5A00 italic", // brown/gold
+		"white bg:#8B008B italic", // magenta
+		"white bg:#008B8B italic", // cyan
+		"white bg:#CC5500 italic", // orange
+		"white bg:#4B0082 italic", // indigo
+		"white bg:#006666 italic", // teal
+		"white bg:#99004C italic", // pink/maroon
+		"white bg:#556B2F italic", // olive
+		"white bg:#2F4F4F italic", // slate
 	}
 }
 

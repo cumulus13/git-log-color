@@ -25,6 +25,7 @@ type CLIOptions struct {
 	ConfigPath string
 	NoColor    bool
 	NoIcons    bool
+	Full       bool
 	GitBin     string
 	ExtraArgs  []string
 }
@@ -52,9 +53,13 @@ func main() {
 		cfg.UI.IconsEnabled = false
 	}
 
+	pager, out := StartPager(!options.Full, os.Stdout)
+
 	app := NewApplication(cfg, options)
-	if err := app.Run(resolvedPath); err != nil {
-		exitErr(err)
+	runErr := app.Run(resolvedPath, out)
+	pager.Wait()
+	if runErr != nil {
+		exitErr(runErr)
 	}
 }
 
@@ -74,6 +79,8 @@ func parseCLI(args []string) (CLIOptions, error) {
 	fs.StringVar(&opts.ConfigPath, "config", "", "config file path (JSON)")
 	fs.BoolVar(&opts.NoColor, "no-color", false, "disable ANSI colors")
 	fs.BoolVar(&opts.NoIcons, "no-icons", false, "disable emoji/icons")
+	fs.BoolVar(&opts.Full, "f", false, "print full output directly, bypassing the pager (shorthand)")
+	fs.BoolVar(&opts.Full, "full", false, "print full output directly, bypassing the pager")
 	fs.StringVar(&opts.GitBin, "git-bin", "git", "git executable path")
 	showVersion := fs.Bool("version", false, "print version information")
 	showHelp := fs.Bool("help", false, "show help")
@@ -124,6 +131,8 @@ func printUsage(fs *flag.FlagSet) {
 	fmt.Fprintf(os.Stdout, "  %s --path . --format text\n", AppName)
 	fmt.Fprintf(os.Stdout, "  %s -C .. --all --format table\n", AppName)
 	fmt.Fprintf(os.Stdout, "  %s --format json -- --author=Hadi -- README.md\n\n", AppName)
+	fmt.Fprintf(os.Stdout, "Output is paged through $GIT_PAGER/$PAGER (or less) by default when\n")
+	fmt.Fprintf(os.Stdout, "attached to a terminal. Pass -f/--full to print everything directly.\n\n")
 	fs.PrintDefaults()
 }
 

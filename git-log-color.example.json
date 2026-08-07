@@ -24,17 +24,17 @@
     "version": "📦 "
   },
   "author_palette": [
-    "bold #FF5555",
-    "bold #55FF55",
-    "bold #5599FF",
-    "bold #FFD700",
-    "bold #FF55FF",
-    "bold #55FFFF",
-    "bold #FFA500",
-    "bold #AA55FF",
-    "bold #00CED1",
-    "bold #FF69B4",
-    "bold #9ACD32",
-    "bold #40E0D0"
+    "white bg:#AA0000 italic",
+    "white bg:#006400 italic",
+    "white bg:#00008B italic",
+    "white bg:#8B5A00 italic",
+    "white bg:#8B008B italic",
+    "white bg:#008B8B italic",
+    "white bg:#CC5500 italic",
+    "white bg:#4B0082 italic",
+    "white bg:#006666 italic",
+    "white bg:#99004C italic",
+    "white bg:#556B2F italic",
+    "white bg:#2F4F4F italic"
   ]
 }
